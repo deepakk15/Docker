@@ -1,0 +1,28 @@
+# .travis.yml
+
+# Specify the language and version of Docker to use
+language: minimal
+
+services:
+  - docker
+
+# Define the build stages
+jobs:
+  include:
+    - stage: build
+      name: "Build Docker Image"
+      script:
+        - docker build -t my-docker-image .
+
+    - stage: test
+      name: "Run Tests"
+      script:
+        - docker run my-docker-image /path/to/your/test/script.sh
+
+# You can also specify notifications if needed
+notifications:
+  email:
+    recipients:
+      - your-email@example.com
+    on_success: always
+    on_failure: always
